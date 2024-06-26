@@ -16,13 +16,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: screenHome(),
+      home: HomeScreen(),
     );
   }
 }
 
-class screenHome extends StatelessWidget {
-  screenHome({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
   final _numberinputcontroller = TextEditingController();
 
@@ -38,12 +38,14 @@ class screenHome extends StatelessWidget {
               TextFormField(
                 controller: _numberinputcontroller,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), hintText: 'Number'),
               ),
               ElevatedButton(
                 onPressed: () {
-                  getnumberfact(number: 19);
+                  final _number = _numberinputcontroller.text;
+
+                  getnumberfact(number: _number);
                 },
                 child: Text('Get result'),
               ),
