@@ -21,10 +21,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final _numberinputcontroller = TextEditingController();
+
+  String _resultText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +49,16 @@ class HomeScreen extends StatelessWidget {
                     border: OutlineInputBorder(), hintText: 'Number'),
               ),
               ElevatedButton(
-                onPressed: () {
-                  final _number = _numberinputcontroller.text;
-
-                  getnumberfact(number: _number);
+                onPressed: () async {
+                  int _number = int.parse(_numberinputcontroller.text);
+                  final _result = await getnumberfact(number: _number);
+                  setState(() {
+                    _resultText = _result.text ?? "error";
+                  });
                 },
                 child: Text('Get result'),
               ),
+              Text(_resultText)
             ],
           ),
         ),
